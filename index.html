@@ -167,7 +167,7 @@
             vertical-align: middle;
         }
 
-        /* NEW: Interactive Games Section */
+        /* Games Section */
         .games-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -199,7 +199,123 @@
             opacity: 0.9;
         }
 
-        /* NEW: Motivational Quote */
+        /* Quiz Modal */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #f7fafc;
+            border-color: #667eea;
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quiz-timer {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        .quiz-answer {
+            display: none;
+            background: #f0fff4;
+            border: 2px solid #9ae6b4;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .quiz-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-submit {
+            background: #48bb78;
+            color: white;
+        }
+
+        .quiz-submit:hover {
+            background: #38a169;
+        }
+
+        .quiz-next {
+            background: #667eea;
+            color: white;
+        }
+
+        .quiz-next:hover {
+            background: #5a67d8;
+        }
+
+        .quiz-close {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .quiz-close:hover {
+            background: #c53030;
+        }
+
+        /* Motivational Quote */
         .motivational-quote {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
             color: white;
@@ -210,7 +326,7 @@
             font-style: italic;
         }
 
-        /* NEW: Desktop Styles */
+        /* Desktop Styles */
         @media (min-width: 1024px) {
             body {
                 padding-top: 120px;
@@ -358,13 +474,28 @@
         </div>
     </div>
 
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="quiz-timer" id="quizTimer">Time left: 30 seconds</div>
+            <div class="quiz-question" id="quizQuestion"></div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <div class="quiz-answer" id="quizAnswer"></div>
+            <div class="quiz-buttons">
+                <button class="quiz-button quiz-submit" onclick="submitAnswer()">Submit Answer</button>
+                <button class="quiz-button quiz-next" onclick="nextQuestion()" style="display: none;">Next Question</button>
+                <button class="quiz-button quiz-close" onclick="closeQuiz()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div class="content">
         <div class="disclaimer">
             <strong>Educational Purpose Only:</strong> Content generated through automated research systems. Not financial, legal, or professional advice.
         </div>
 
         <!-- Motivational Quote -->
-        <div class="motivational-quote">
+        <div class="motivational-quote" id="dailyQuote">
             "Education is the most powerful weapon which you can use to change the world." - Nelson Mandela
         </div>
         
@@ -392,35 +523,35 @@
             </div>
         </section>
 
-        <!-- NEW: Educational Games Section -->
+        <!-- Educational Games Section -->
         <section id="games" class="section">
-            <h2>🎮 Educational Games & Tools</h2>
-            <p>Test your knowledge and learn through interactive experiences!</p>
+            <h2>🎮 Interactive Educational Games</h2>
+            <p>Test your knowledge with timed quizzes! Answers are revealed after you submit or when time runs out.</p>
             
             <div class="games-grid">
-                <div class="game-card" onclick="startIQTest()">
-                    <h4>🧠 Quick IQ Test</h4>
-                    <p>5-minute cognitive assessment</p>
+                <div class="game-card" onclick="startQuiz('iq')">
+                    <h4>🧠 IQ Challenge</h4>
+                    <p>5 cognitive questions • 30s each</p>
                 </div>
                 
-                <div class="game-card" onclick="startFinanceQuiz()">
-                    <h4>💰 Finance Quiz</h4>
-                    <p>Test your money knowledge</p>
+                <div class="game-card" onclick="startQuiz('finance')">
+                    <h4>💰 Finance Master</h4>
+                    <p>Money knowledge test • 30s each</p>
                 </div>
                 
-                <div class="game-card" onclick="startTechTrivia()">
+                <div class="game-card" onclick="startQuiz('tech')">
                     <h4>🤖 Tech Trivia</h4>
-                    <p>AI & Blockchain questions</p>
+                    <p>AI & Blockchain quiz • 30s each</p>
                 </div>
                 
-                <div class="game-card" onclick="showDailyChallenge()">
-                    <h4>🏆 Daily Challenge</h4>
-                    <p>New puzzle every day</p>
+                <div class="game-card" onclick="startQuiz('sustainability')">
+                    <h4>🌱 Eco Quiz</h4>
+                    <p>Sustainability questions • 30s each</p>
                 </div>
                 
-                <div class="game-card" onclick="startLearningPath()">
-                    <h4>📚 Learning Path</h4>
-                    <p>Personalized education journey</p>
+                <div class="game-card" onclick="startQuiz('marketing')">
+                    <h4>📈 Marketing Test</h4>
+                    <p>Digital marketing quiz • 30s each</p>
                 </div>
                 
                 <div class="game-card" onclick="showProgressTracker()">
@@ -468,7 +599,245 @@
     </div>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Quiz System Variables
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let timer = null;
+        let timeLeft = 30;
+        let selectedOption = null;
+        let userScore = 0;
+
+        // Complete Quiz Questions Database
+        const quizzes = {
+            iq: [
+                {
+                    question: "What comes next in the sequence: 2, 4, 8, 16, ?",
+                    options: ["24", "32", "64", "128"],
+                    answer: 1,
+                    explanation: "This is a geometric sequence where each number doubles the previous one (2×2=4, 4×2=8, 8×2=16, 16×2=32)."
+                },
+                {
+                    question: "If all humans are mortal and Socrates is human, then:",
+                    options: ["Socrates is immortal", "Socrates is mortal", "Socrates might be mortal", "None of the above"],
+                    answer: 1,
+                    explanation: "This is a classic syllogism. If all humans are mortal and Socrates is human, then Socrates must be mortal."
+                },
+                {
+                    question: "What is 15% of 200?",
+                    options: ["15", "30", "45", "60"],
+                    answer: 1,
+                    explanation: "15% of 200 = (15/100) × 200 = 0.15 × 200 = 30"
+                }
+            ],
+            finance: [
+                {
+                    question: "What does 'APR' stand for in finance?",
+                    options: ["Annual Percentage Rate", "Average Payment Return", "Automated Payment Response", "Annual Profit Ratio"],
+                    answer: 0,
+                    explanation: "APR stands for Annual Percentage Rate, which represents the yearly cost of borrowing money including fees."
+                },
+                {
+                    question: "What is compound interest?",
+                    options: ["Interest on the principal only", "Interest on interest", "Fixed interest rate", "Simple interest"],
+                    answer: 1,
+                    explanation: "Compound interest is interest calculated on the initial principal and also on the accumulated interest from previous periods."
+                }
+            ],
+            tech: [
+                {
+                    question: "What does 'AI' stand for?",
+                    options: ["Automated Intelligence", "Artificial Intelligence", "Advanced Interface", "Algorithmic Integration"],
+                    answer: 1,
+                    explanation: "AI stands for Artificial Intelligence - the simulation of human intelligence in machines."
+                },
+                {
+                    question: "What is blockchain technology primarily used for?",
+                    options: ["Gaming", "Social media", "Decentralized record-keeping", "Video streaming"],
+                    answer: 2,
+                    explanation: "Blockchain is a decentralized digital ledger that records transactions across many computers securely."
+                }
+            ],
+            sustainability: [
+                {
+                    question: "What does 'carbon footprint' refer to?",
+                    options: ["The amount of carbon in your shoes", "Total greenhouse gas emissions caused by an individual", "The carbon in fossil fuels", "A type of environmental certificate"],
+                    answer: 1,
+                    explanation: "Carbon footprint is the total amount of greenhouse gases (including carbon dioxide and methane) that are generated by our actions."
+                },
+                {
+                    question: "Which of these is a renewable energy source?",
+                    options: ["Coal", "Natural gas", "Solar power", "Nuclear energy"],
+                    answer: 2,
+                    explanation: "Solar power is renewable because it comes from the sun, which is continuously available, unlike fossil fuels which are finite."
+                }
+            ],
+            marketing: [
+                {
+                    question: "What does 'SEO' stand for in digital marketing?",
+                    options: ["Social Engagement Optimization", "Search Engine Optimization", "Sales Enhancement Operations", "Strategic Engagement Outreach"],
+                    answer: 1,
+                    explanation: "SEO stands for Search Engine Optimization - the process of improving your website to increase its visibility in search engine results."
+                },
+                {
+                    question: "What is 'conversion rate' in marketing?",
+                    options: ["The rate at which customers return", "The percentage of visitors who complete a desired action", "The speed of website loading", "The rate of social media shares"],
+                    answer: 1,
+                    explanation: "Conversion rate is the percentage of website visitors who complete a desired goal (like making a purchase or signing up) out of the total number of visitors."
+                }
+            ]
+        };
+
+        // Quiz Functions
+        function startQuiz(quizType) {
+            currentQuiz = quizType;
+            currentQuestionIndex = 0;
+            userScore = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const quiz = quizzes[currentQuiz];
+            
+            // Error handling for undefined quizzes
+            if (!quiz) {
+                alert('Quiz not available yet. Coming soon!');
+                return;
+            }
+            
+            if (currentQuestionIndex >= quiz.length) {
+                endQuiz();
+                return;
+            }
+
+            const question = quiz[currentQuestionIndex];
+            const modal = document.getElementById('quizModal');
+            const questionElement = document.getElementById('quizQuestion');
+            const optionsElement = document.getElementById('quizOptions');
+            const answerElement = document.getElementById('quizAnswer');
+
+            // Reset UI
+            modal.style.display = 'flex';
+            answerElement.style.display = 'none';
+            document.querySelector('.quiz-next').style.display = 'none';
+            document.querySelector('.quiz-submit').style.display = 'block';
+            selectedOption = null;
+
+            // Set question
+            questionElement.textContent = question.question;
+
+            // Set options
+            optionsElement.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectOption(index, optionElement);
+                optionsElement.appendChild(optionElement);
+            });
+
+            // Start timer
+            startTimer();
+        }
+
+        function selectOption(index, element) {
+            // Remove selected class from all options
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            selectedOption = index;
+        }
+
+        function startTimer() {
+            timeLeft = 30;
+            updateTimerDisplay();
+
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    autoRevealAnswer();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('quizTimer').textContent = `Time left: ${timeLeft} seconds`;
+        }
+
+        function submitAnswer() {
+            if (selectedOption === null) {
+                alert('Please select an answer first!');
+                return;
+            }
+            clearInterval(timer);
+            revealAnswer();
+        }
+
+        function autoRevealAnswer() {
+            revealAnswer();
+            // Auto-advance after 5 seconds
+            setTimeout(() => {
+                if (currentQuestionIndex < quizzes[currentQuiz].length - 1) {
+                    nextQuestion();
+                }
+            }, 5000);
+        }
+
+        function revealAnswer() {
+            const question = quizzes[currentQuiz][currentQuestionIndex];
+            const answerElement = document.getElementById('quizAnswer');
+            const isCorrect = selectedOption === question.answer;
+
+            if (isCorrect) {
+                userScore++;
+                answerElement.style.background = '#f0fff4';
+                answerElement.style.borderColor = '#9ae6b4';
+            } else {
+                answerElement.style.background = '#fed7d7';
+                answerElement.style.borderColor = '#fc8181';
+            }
+
+            answerElement.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                The correct answer is: <strong>${question.options[question.answer]}</strong><br>
+                <em>${question.explanation}</em>
+            `;
+            answerElement.style.display = 'block';
+
+            document.querySelector('.quiz-submit').style.display = 'none';
+            document.querySelector('.quiz-next').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function endQuiz() {
+            const modal = document.getElementById('quizModal');
+            const questionElement = document.getElementById('quizQuestion');
+            const optionsElement = document.getElementById('quizOptions');
+            const answerElement = document.getElementById('quizAnswer');
+
+            questionElement.textContent = `Quiz Complete! Your score: ${userScore}/${quizzes[currentQuiz].length}`;
+            optionsElement.innerHTML = '';
+            answerElement.style.display = 'none';
+            document.querySelector('.quiz-next').style.display = 'none';
+            document.querySelector('.quiz-submit').style.display = 'none';
+        }
+
+        function closeQuiz() {
+            const modal = document.getElementById('quizModal');
+            modal.style.display = 'none';
+            clearInterval(timer);
+        }
+
+        // Navigation and Other Functions
         document.querySelectorAll('.nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -492,7 +861,6 @@
             });
         });
 
-        // Update active nav link based on scroll position
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.section');
             const navLinks = document.querySelectorAll('.nav a');
@@ -515,38 +883,11 @@
             });
         });
 
-        // NEW: Interactive Games Functions
-        function startIQTest() {
-            alert('🧠 Quick IQ Test Started!\n\nQuestion 1: What comes next? 2, 4, 8, 16, ?\nA) 24\nB) 32\nC) 64\n\n(Answer: B) 32 - This is a geometric sequence where each number doubles the previous)');
-        }
-
-        function startFinanceQuiz() {
-            alert('💰 Finance Quiz!\n\nQuestion: What does "APR" stand for?\nA) Annual Percentage Rate\nB) Average Payment Return\nC) Automated Payment Response\n\n(Answer: A) Annual Percentage Rate - It represents the yearly cost of borrowing money)');
-        }
-
-        function startTechTrivia() {
-            alert('🤖 Tech Trivia!\n\nQuestion: What does "AI" stand for?\nA) Automated Intelligence\nB) Artificial Intelligence\nC) Advanced Interface\n\n(Answer: B) Artificial Intelligence - The simulation of human intelligence in machines)');
-        }
-
-        function showDailyChallenge() {
-            const challenges = [
-                "Solve: If a train travels at 60 mph for 2 hours, how far does it go? (Answer: 120 miles)",
-                "Logic: All humans are mortal. Socrates is human. Therefore? (Answer: Socrates is mortal)",
-                "Math: What is 15% of 200? (Answer: 30)"
-            ];
-            const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-            alert('🏆 Daily Challenge!\n\n' + randomChallenge);
-        }
-
-        function startLearningPath() {
-            alert('📚 Learning Path Started!\n\nBased on your interests, we recommend:\n1. AI Fundamentals Course\n2. Blockchain Basics\n3. Sustainable Living Guide\n4. Digital Marketing 101\n5. Personal Finance Mastery');
-        }
-
         function showProgressTracker() {
             alert('📊 Progress Tracker\n\nKnowledge Levels:\n🤖 AI & Tech: Beginner → Intermediate\n💰 Finance: Beginner\n🌱 Sustainability: Intermediate\n📈 Marketing: Beginner\n\nKeep learning daily to level up!');
         }
 
-        // NEW: Rotate motivational quotes daily
+        // Motivational quotes
         const quotes = [
             "The beautiful thing about learning is that no one can take it away from you. - B.B. King",
             "Education is the passport to the future, for tomorrow belongs to those who prepare for it today. - Malcolm X",
@@ -555,10 +896,9 @@
             "Learning is not attained by chance, it must be sought for with ardor and diligence. - Abigail Adams"
         ];
 
-        // Change quote daily
         const today = new Date().getDate();
         const quoteIndex = today % quotes.length;
-        document.querySelector('.motivational-quote').textContent = `"${quotes[quoteIndex]}"`;
+        document.getElementById('dailyQuote').textContent = `"${quotes[quoteIndex]}"`;
     </script>
 </body>
 </html>
