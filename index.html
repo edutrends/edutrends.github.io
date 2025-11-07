@@ -90,7 +90,7 @@
 
         .content {
             padding: 1rem;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -167,6 +167,106 @@
             vertical-align: middle;
         }
 
+        /* NEW: Interactive Games Section */
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* NEW: Motivational Quote */
+        .motivational-quote {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        /* NEW: Desktop Styles */
+        @media (min-width: 1024px) {
+            body {
+                padding-top: 120px;
+            }
+
+            .header {
+                height: 100px;
+                padding: 1.5rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+                margin-bottom: 0;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .nav {
+                top: 100px;
+                height: 60px;
+                padding: 1rem 2rem;
+            }
+
+            .nav-scroll {
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .nav a {
+                padding: 0.7rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section {
+                padding: 2rem;
+            }
+
+            .article h3 {
+                font-size: 1.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding-top: 130px;
@@ -241,8 +341,10 @@
 </head>
 <body>
     <div class="header">
-        <h1>EduTrends Hub</h1>
-        <p>Automated Educational Research System</p>
+        <div>
+            <h1>EduTrends Hub</h1>
+            <p>Automated Educational Research System</p>
+        </div>
     </div>
     
     <div class="nav">
@@ -252,12 +354,18 @@
             <a href="#sustainable">Sustainable Living</a>
             <a href="#marketing">Digital Marketing</a>
             <a href="#finance">Personal Finance</a>
+            <a href="#games">Educational Games</a>
         </div>
     </div>
 
     <div class="content">
         <div class="disclaimer">
             <strong>Educational Purpose Only:</strong> Content generated through automated research systems. Not financial, legal, or professional advice.
+        </div>
+
+        <!-- Motivational Quote -->
+        <div class="motivational-quote">
+            "Education is the most powerful weapon which you can use to change the world." - Nelson Mandela
         </div>
         
         <!-- AI & Tech Section -->
@@ -268,8 +376,7 @@
                 <h3 class="viral">AI Revolutionizes Creative and Healthcare Industries in November 2025 <span class="trending-badge">TRENDING</span></h3>
                 <p class="date">November 7, 2025</p>
                 <p>November 2025 marks a momentous leap in AI technology, especially in healthcare and creative production. AI is transforming healthcare diagnostics and drug discovery by rapidly analyzing vast datasets to uncover medical insights that accelerate treatments.</p>
-                <p>Meanwhile, generative AI tools have surged in popularity, enabling creators to produce cinematic-quality videos and detailed 3D scenes from simple text prompts, opening new frontiers in gaming, marketing, and virtual reality. With over 1,000 AI apps now verified on leading platforms, businesses and creators alike are harnessing these advancements to streamline workflows and solve real-world problems practically and creatively.</p>
-                <p>The buzz around AI's practical impact and ease of use is trending strongly this month as these technologies become increasingly accessible to mainstream users.</p>
+                <p>Meanwhile, generative AI tools have surged in popularity, enabling creators to produce cinematic-quality videos and detailed 3D scenes from simple text prompts, opening new frontiers in gaming, marketing, and virtual reality.</p>
             </div>
         </section>
 
@@ -280,9 +387,46 @@
             <div class="article">
                 <h3 class="viral">Explosive Altcoin Surges Spotlight AI-Driven Blockchain Innovation <span class="trending-badge">BREAKING</span></h3>
                 <p class="date">November 6, 2025</p>
-                <p>The crypto space is heating up with a surprising breakout as Filecoin (FIL) soared over 50% within 24 hours, igniting excitement about renewed interest in decentralized data storage and AI-powered blockchain applications. With Bitcoin stabilizing around $99,000, investors are watching this altcoin rally as a potential signal of emerging narratives around utility-driven blockchain projects.</p>
-                <p>The surge highlights the growing intersection of AI and blockchain technology, driving momentum toward Web3 infrastructures that can power more scalable, efficient decentralized services. This viral news is captivating crypto enthusiasts and framing discussions on future blockchain innovations that merge artificial intelligence with decentralized networks.</p>
-                <p>Industry analysts note this movement represents a shift toward practical blockchain applications beyond cryptocurrency trading, focusing on real-world utility and technological integration.</p>
+                <p>The crypto space is heating up with a surprising breakout as Filecoin (FIL) soared over 50% within 24 hours, igniting excitement about renewed interest in decentralized data storage and AI-powered blockchain applications.</p>
+                <p>With Bitcoin stabilizing around $99,000, investors are watching this altcoin rally as a potential signal of emerging narratives around utility-driven blockchain projects.</p>
+            </div>
+        </section>
+
+        <!-- NEW: Educational Games Section -->
+        <section id="games" class="section">
+            <h2>🎮 Educational Games & Tools</h2>
+            <p>Test your knowledge and learn through interactive experiences!</p>
+            
+            <div class="games-grid">
+                <div class="game-card" onclick="startIQTest()">
+                    <h4>🧠 Quick IQ Test</h4>
+                    <p>5-minute cognitive assessment</p>
+                </div>
+                
+                <div class="game-card" onclick="startFinanceQuiz()">
+                    <h4>💰 Finance Quiz</h4>
+                    <p>Test your money knowledge</p>
+                </div>
+                
+                <div class="game-card" onclick="startTechTrivia()">
+                    <h4>🤖 Tech Trivia</h4>
+                    <p>AI & Blockchain questions</p>
+                </div>
+                
+                <div class="game-card" onclick="showDailyChallenge()">
+                    <h4>🏆 Daily Challenge</h4>
+                    <p>New puzzle every day</p>
+                </div>
+                
+                <div class="game-card" onclick="startLearningPath()">
+                    <h4>📚 Learning Path</h4>
+                    <p>Personalized education journey</p>
+                </div>
+                
+                <div class="game-card" onclick="showProgressTracker()">
+                    <h4>📊 Progress Tracker</h4>
+                    <p>Monitor your learning growth</p>
+                </div>
             </div>
         </section>
 
@@ -293,9 +437,8 @@
             <div class="article">
                 <h3 class="viral">Project Pan 2025 Sparks Viral Movement Against Overconsumption <span class="trending-badge">VIRAL</span></h3>
                 <p class="date">November 5, 2025</p>
-                <p>Sustainability enthusiasts are embracing Project Pan 2025, a viral challenge encouraging people to finish existing skincare and beauty products before buying new ones. This minimalist movement pushes back against fast fashion and wasteful consumer habits by sharing progress and creative repurposing ideas on social media, generating wide engagement.</p>
-                <p>Alongside this, innovations in smart urban gardens, zero-waste shops, and smart home devices are making sustainable living both accessible and rewarding, encouraging eco-friendly habits that reduce environmental footprints. These trends reflect a lifestyle shift that is gaining viral attention for promoting meaningful environmental impact through everyday choices.</p>
-                <p>The movement has gained momentum across social platforms, with participants sharing their "panning" journeys and creative reuse ideas, creating a community-driven approach to sustainable consumption that resonates with environmentally conscious consumers worldwide.</p>
+                <p>Sustainability enthusiasts are embracing Project Pan 2025, a viral challenge encouraging people to finish existing skincare and beauty products before buying new ones.</p>
+                <p>This minimalist movement pushes back against fast fashion and wasteful consumer habits by sharing progress and creative repurposing ideas on social media.</p>
             </div>
         </section>
 
@@ -306,9 +449,8 @@
             <div class="article">
                 <h3 class="viral">8 Viral Strategies Every Marketer Must Use in 2025 <span class="trending-badge">MUST-READ</span></h3>
                 <p class="date">November 4, 2025</p>
-                <p>Going viral in 2025 demands a savvy blend of creativity, timing, and data insights. Winning campaigns know their audiences deeply, tapping into social media trends and memes to craft emotionally resonant, visually compelling content that sparks shares.</p>
-                <p>Emphasizing short, impactful videos—especially on platforms like TikTok—and encouraging user-generated content amplifies reach. Influencer collaborations multiply credibility while real-time tracking enables agile course corrections.</p>
-                <p>These viral marketing formulas are driving engagement and buzz in highly competitive digital spaces, offering must-know strategies for marketers aiming to make their message explode in popularity this November. The key differentiator remains authentic storytelling that connects with audience emotions while leveraging platform-specific algorithms.</p>
+                <p>Going viral in 2025 demands a savvy blend of creativity, timing, and data insights. Winning campaigns know their audiences deeply, tapping into social media trends and memes.</p>
+                <p>Emphasizing short, impactful videos and encouraging user-generated content amplifies reach in highly competitive digital spaces.</p>
             </div>
         </section>
 
@@ -319,9 +461,8 @@
             <div class="article">
                 <h3 class="viral">November 2025 Financial Education Month Highlights Growing Demand for Literacy <span class="trending-badge">POPULAR</span></h3>
                 <p class="date">November 3, 2025</p>
-                <p>Financial Education Month in November 2025 shines a spotlight on the escalating demand for accessible, high-impact money management education. Recent polling reveals overwhelming support—over 80%—for mandatory personal finance courses in high schools, reflecting a public desire for better preparedness in budgeting, saving, and credit management.</p>
-                <p>While financial advice often comes from family or informal sources, formal education campaigns are increasingly using interactive workshops, webinars, and games to engage learners and boost confidence.</p>
-                <p>This viral push for widespread financial literacy emphasizes practical, educational content over advice, aiming to empower people amidst ongoing economic changes. The movement highlights a growing recognition that financial education is essential for navigating complex modern economic landscapes and achieving long-term financial stability.</p>
+                <p>Financial Education Month in November 2025 shines a spotlight on the escalating demand for accessible, high-impact money management education.</p>
+                <p>Recent polling reveals overwhelming support—over 80%—for mandatory personal finance courses in high schools, reflecting a public desire for better financial preparedness.</p>
             </div>
         </section>
     </div>
@@ -373,6 +514,51 @@
                 }
             });
         });
+
+        // NEW: Interactive Games Functions
+        function startIQTest() {
+            alert('🧠 Quick IQ Test Started!\n\nQuestion 1: What comes next? 2, 4, 8, 16, ?\nA) 24\nB) 32\nC) 64\n\n(Answer: B) 32 - This is a geometric sequence where each number doubles the previous)');
+        }
+
+        function startFinanceQuiz() {
+            alert('💰 Finance Quiz!\n\nQuestion: What does "APR" stand for?\nA) Annual Percentage Rate\nB) Average Payment Return\nC) Automated Payment Response\n\n(Answer: A) Annual Percentage Rate - It represents the yearly cost of borrowing money)');
+        }
+
+        function startTechTrivia() {
+            alert('🤖 Tech Trivia!\n\nQuestion: What does "AI" stand for?\nA) Automated Intelligence\nB) Artificial Intelligence\nC) Advanced Interface\n\n(Answer: B) Artificial Intelligence - The simulation of human intelligence in machines)');
+        }
+
+        function showDailyChallenge() {
+            const challenges = [
+                "Solve: If a train travels at 60 mph for 2 hours, how far does it go? (Answer: 120 miles)",
+                "Logic: All humans are mortal. Socrates is human. Therefore? (Answer: Socrates is mortal)",
+                "Math: What is 15% of 200? (Answer: 30)"
+            ];
+            const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+            alert('🏆 Daily Challenge!\n\n' + randomChallenge);
+        }
+
+        function startLearningPath() {
+            alert('📚 Learning Path Started!\n\nBased on your interests, we recommend:\n1. AI Fundamentals Course\n2. Blockchain Basics\n3. Sustainable Living Guide\n4. Digital Marketing 101\n5. Personal Finance Mastery');
+        }
+
+        function showProgressTracker() {
+            alert('📊 Progress Tracker\n\nKnowledge Levels:\n🤖 AI & Tech: Beginner → Intermediate\n💰 Finance: Beginner\n🌱 Sustainability: Intermediate\n📈 Marketing: Beginner\n\nKeep learning daily to level up!');
+        }
+
+        // NEW: Rotate motivational quotes daily
+        const quotes = [
+            "The beautiful thing about learning is that no one can take it away from you. - B.B. King",
+            "Education is the passport to the future, for tomorrow belongs to those who prepare for it today. - Malcolm X",
+            "Your education is a dress rehearsal for a life that is yours to lead. - Nora Ephron",
+            "The mind is not a vessel to be filled, but a fire to be kindled. - Plutarch",
+            "Learning is not attained by chance, it must be sought for with ardor and diligence. - Abigail Adams"
+        ];
+
+        // Change quote daily
+        const today = new Date().getDate();
+        const quoteIndex = today % quotes.length;
+        document.querySelector('.motivational-quote').textContent = `"${quotes[quoteIndex]}"`;
     </script>
 </body>
 </html>
